@@ -4,48 +4,65 @@ import Boton from './components/Boton'
 import freecodeCampLogo from './images/freecodecamp-logo.png'
 import Pantalla from './components/Pantalla'
 import BotonClear from './components/BotonClear'
+import { evaluate } from 'mathjs'
+
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [input, setInput] = useState('0')
+
+  const agregarInput = (val: string) => {
+    setInput(input + val)
+  }
+
+  const resetInput = () => {
+    setInput('0')
+  }
+
+  ///definir componente para el logo
+  /// corregir casos que no se ha manejado
+
+  const calcularResultado = () => {
+    input ? setInput(evaluate(input)) : alert('ingresa valores')
+  }
 
   return (
     <div className="App">
-    <div className="freecodecamp-logo-contenedor">
-      <img src={freecodeCampLogo} alt="Logo de freeCodeCamp" className="freecodecamp-logo" />
-    </div>
-    <main className="contenedor-calculadora">
-      <Pantalla />
-      <div className="fila">
-        <Boton>1</Boton>
-        <Boton>2</Boton>
-        <Boton>3</Boton>
-        <Boton>+</Boton>
+      <div className="freecodecamp-logo-contenedor">
+        <img src={freecodeCampLogo} alt="Logo de freeCodeCamp" className="freecodecamp-logo" />
       </div>
-      <div className="fila">
-        <Boton>4</Boton>
-        <Boton>5</Boton>
-        <Boton>6</Boton>
-        <Boton>-</Boton>
+      <main className="contenedor-calculadora">
+        <Pantalla input={input} />
+        <div className="fila">
+          <Boton manejarClic={agregarInput}>1</Boton>
+          <Boton manejarClic={agregarInput}>2</Boton>
+          <Boton manejarClic={agregarInput}>3</Boton>
+          <Boton manejarClic={agregarInput}>+</Boton>
+        </div>
+        <div className="fila">
+          <Boton manejarClic={agregarInput}>4</Boton>
+          <Boton manejarClic={agregarInput}>5</Boton>
+          <Boton manejarClic={agregarInput}>6</Boton>
+          <Boton manejarClic={agregarInput}>-</Boton>
 
-      </div>
-      <div className="fila">
-        <Boton>7</Boton>
-        <Boton>8</Boton>
-        <Boton>9</Boton>
-        <Boton>*</Boton>
+        </div>
+        <div className="fila">
+          <Boton manejarClic={agregarInput}>7</Boton>
+          <Boton manejarClic={agregarInput}>8</Boton>
+          <Boton manejarClic={agregarInput}>9</Boton>
+          <Boton manejarClic={agregarInput}>*</Boton>
 
-      </div>
-      <div className="fila">
-        <Boton>=</Boton>
-        <Boton>0</Boton>
-        <Boton>.</Boton>
-        <Boton>/</Boton>
+        </div>
+        <div className="fila">
+          <Boton manejarClic={calcularResultado}>=</Boton>
+          <Boton manejarClic={agregarInput}>0</Boton>
+          <Boton manejarClic={agregarInput}>.</Boton>
+          <Boton manejarClic={agregarInput}>/</Boton>
 
-      </div>
-      <div className="fila">
-        <BotonClear>Clear</BotonClear>
-      </div>
-    </main>
+        </div>
+        <div className="fila">
+          <BotonClear manejarClic={resetInput}>Clear</BotonClear>
+        </div>
+      </main>
 
     </div>
   )
